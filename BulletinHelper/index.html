@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bulletin Helper</title>
+<link href="css/singlePageTemplate.css" rel="stylesheet" type="text/css">
+
+<script>var __adobewebfontsappname__="dreamweaver"</script>
+<script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+
+</head>
+<body>
+<!-- Main Container -->
+<div class="container"> 
+  <!-- Navigation -->
+  
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+	
+    <h2 class="hero_header">QUICK <span class="light">&amp;</span> EASY</h2>
+    <p class="tagline">Die Cutting</p>
+  </section>
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2 class="hidden">About</h2>
+    <p class="text_column"> Tired of having to write the letters you need down on a piece of paper? Use this site to quickly find every letter you need.  Simply type in the phrase you want and hit GO (Or hit Enter). <br><br>It will tell you which letters you need in alphabetical order, how many, and how many pieces of paper you need (Assuming you use 1 sheet of paper for 4 letters). </p>
+  </section>
+  <!-- Stats Gallery Section -->  <!-- onkeypress="return event.keyCode != 13" -->
+	<section class="form" >
+		<p class="text_custom">Enter your phrase here: </p>
+		<form autocomplete="off" onkeypress="if(event.keyCode == 13){myFunction(); return false;}return true;">
+  			<input type="text" id="in">
+		</form> 
+		<div class="holder">
+	  		<button class="button2" id="butt" onclick="myFunction()">Go</button>
+		</div>
+		
+	  		<script>
+				/*
+				function myEvent(){
+						return event.keyCode != 13;
+					}
+				/*
+				input.addEventListener("keyup", function(event){
+					event.preventDefault();
+					if (event.keyCode === 13){
+						document.getElementById("butt").click();
+					}
+				});
+				*/
+				function myFunction() {
+    				
+					var message;
+					var output1 = "";
+					var output2 = "";
+					var i;
+					var data = new Array(57);
+					var count = 0;
+					var split = 0;
+					var paper = 0;
+					var grammar = " sheets"
+					
+					data.fill(0);
+					
+					message = document.getElementById("in").value;
+					message = message.replace(/\s/g, "");
+					message = message.toUpperCase();
+					
+					paper = Math.ceil(message.length/4);
+					
+					
+					for (i = 0; i < message.length; i++){
+						var ascii = message.charCodeAt(i);
+						data[ascii - 33] += 1;
+						//document.getElementById("out").innerHTML = data;
+					}
+					
+					for (i = 0; i < 57; i++){
+						if (data[i] > 0){
+							count++;
+						}
+					}
+					
+					for (i = 0; i < 57; i++){
+						
+						//count += data[i];
+						
+						if (data[i] > 0){
+							//if (count % 2 == 0){
+							if (split < count / 2.0){
+								output1 += String.fromCharCode(i + 33) + "  x  " + data[i] + "<br>";
+								//output1 += message.length.toString() + "<br>";
+								
+							}
+							else {
+								output2 += String.fromCharCode(i + 33) + "  x  " + data[i] + "<br>";
+								//output2 += message.length.toString() + "<br>";
+							}
+							//count++;
+							split++;
+						}
+						
+						if(output1 == ""){
+							document.getElementById("need").innerHTML = "You don't need any letters.";
+						}
+						else{
+							document.getElementById("need").innerHTML = "You need these letters: ";
+						
+						}
+					}
+					
+					if(split == 1){
+						document.getElementById("output1").style.width = "51%";
+					}
+					else{
+						document.getElementById("output1").style.width = "45%";
+					}
+					
+					document.getElementById("output1").innerHTML = output1;
+					document.getElementById("output2").innerHTML = output2;
+					
+					if(paper == 1){grammar = " sheet";}
+					document.getElementById("paper").innerHTML = "This will require " + paper.toString() + grammar + " of paper.";
+	
+					document.getElementById("need").style.visibility = "visible";
+					document.getElementById("output1").style.visibility = "visible";
+					document.getElementById("output2").style.visibility = "visible";
+					
+					}
+			</script>
+		
+		<p class="need" id="need">You need these letters: </p>
+		
+		<div class="row">
+			
+			<div class="col1" id="output1">None</div>
+			<div class="col2" id="output2">None</div>
+			
+		</div>
+		
+		<p class="paper" id="paper"></p>
+		
+		
+  </section>
+  <!-- Footer Section -->
+<footer>
+  <section class="footer_banner" id="contact">
+    <h2 class="hidden">Footer Banner Section </h2>
+    <p class="hero_header">Made by Austin Purtell</p>
+    <div class="social" type="button" onclick="window.open('https://www.linkedin.com/in/austin-purtell/', '_blank')">LinkedIn</div>
+  </section>
+  <!-- Copyrights Section -->
+  <div class="copyright">&copy;2018 - Austin Purtell</div>
+</footer>	
+</div>
+<!-- Main Container Ends -->
+</body>
+</html>
